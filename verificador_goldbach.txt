@@ -42,7 +42,7 @@ import sys
 CONFIG = {
     # Rango de verificación
     "n_inicial": 6,                    # Primer número par a verificar
-    "n_final": 10**17,                 # Último número a verificar (100,000,000,000,000,000)
+    "n_final": 10**17,                  # Último número a verificar (1 billón)
     "paso": 2,                         # Siempre 2 (números pares)
     
     # Paralelización
@@ -319,7 +319,7 @@ def generar_reporte(progreso):
 📊 PROGRESO:
    • Último n verificado: {n_actual:,}
    • Total verificados: {progreso['total_verificados']:,}
-   • Porcentaje completado: {porcentaje:.10f}%
+   • Porcentaje completado: {porcentaje:.4f}%
    
 ✅ RESULTADOS:
    • Cumplen Goldbach: {progreso['total_cumple']:,}
@@ -495,18 +495,9 @@ def main():
         CONFIG["intervalo_guardado"]
     ))
     
-    # Estimar tiempo aproximado (manejo seguro para valores muy grandes)
-    try:
-        estimacion_simple = CONFIG["n_final"] / (CONFIG["num_cores"] * 1000)
-        if estimacion_simple > 86400 * 365 * 100:  # Si es más de 100 años
-            print(f"\n⏱️  Estimación: MÁS DE 100 AÑOS")
-            print("   (La verificación completa no es práctica con hardware actual)")
-        else:
-            print(f"\n⏱️  Estimación muy aproximada: {timedelta(seconds=int(estimacion_simple))}")
-    except (ValueError, OverflowError):
-        print(f"\n⏱️  Estimación: TIEMPO MUY EXTENSO")
-        print("   (El rango es demasiado grande para estimar)")
-    
+    # Estimar tiempo aproximado
+    estimacion_simple = CONFIG["n_final"] / (CONFIG["num_cores"] * 1000)  # muy aproximado
+    print(f"\n⏱️  Estimación muy aproximada: {timedelta(seconds=int(estimacion_simple))}")
     print("   (La estimación real se mostrará después de los primeros batches)\n")
     
     respuesta = input("¿Deseas continuar? (s/n): ")
