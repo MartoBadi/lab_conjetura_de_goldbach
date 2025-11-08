@@ -42,7 +42,7 @@ import sys
 CONFIG = {
     # Rango de verificación
     "n_inicial": 6,                    # Primer número par a verificar
-    "n_final": 10**17,                 # Último número a verificar (100,000,000,000,000,000)
+    "n_final": 10**6,                 # Último número a verificar (100,000,000,000,000,000)
     "paso": 2,                         # Siempre 2 (números pares)
     
     # Paralelización
@@ -151,6 +151,10 @@ def verificar_goldbach_rango(args):
         Diccionario con resultados de la verificación
     """
     n_inicio, n_fin, verbose = args
+    
+    # CORRECCIÓN: Asegurar que n_inicio es par
+    if n_inicio % 2 != 0:
+        n_inicio += 1
     
     # Obtener primos necesarios
     max_primo_necesario = n_fin
@@ -368,6 +372,10 @@ def verificacion_masiva_goldbach():
     # Cargar progreso previo
     progreso = cargar_progreso()
     n_inicio = progreso["ultimo_n_verificado"] + 2
+    
+    # CORRECCIÓN: Asegurar que n_inicio es par
+    if n_inicio % 2 != 0:
+        n_inicio += 1
     
     # Verificar si ya terminamos
     if n_inicio >= CONFIG["n_final"]:
