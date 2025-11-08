@@ -42,7 +42,7 @@ import sys
 CONFIG = {
     # Rango de verificación
     "n_inicial": 6,                    # Primer número par a verificar
-    "n_final": 10**17,                 # Último número a verificar (100,000,000,000,000,000)
+    "n_final": 10**6,                 # Último número a verificar (100,000,000,000,000,000)
     "paso": 2,                         # Siempre 2 (números pares)
     
     # Paralelización
