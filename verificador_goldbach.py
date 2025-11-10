@@ -152,6 +152,10 @@ def verificar_goldbach_rango(args):
     """
     n_inicio, n_fin, verbose = args
     
+    # CORRECCIÓN: Asegurar que n_inicio es par
+    if n_inicio % 2 != 0:
+        n_inicio += 1
+    
     # Obtener primos necesarios
     max_primo_necesario = n_fin
     primos, set_primos = obtener_primos_hasta(max_primo_necesario)
@@ -368,6 +372,10 @@ def verificacion_masiva_goldbach():
     # Cargar progreso previo
     progreso = cargar_progreso()
     n_inicio = progreso["ultimo_n_verificado"] + 2
+    
+    # CORRECCIÓN: Asegurar que n_inicio es par
+    if n_inicio % 2 != 0:
+        n_inicio += 1
     
     # Verificar si ya terminamos
     if n_inicio >= CONFIG["n_final"]:
